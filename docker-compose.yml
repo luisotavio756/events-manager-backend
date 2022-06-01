@@ -1,0 +1,20 @@
+version: '3'
+services:
+  server:
+    build: .
+    command: npm start
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/usr/app
+  postgres:
+    image: postgres:alpine
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=db_sigev
+    ports:
+      - "5432:5432"
+    volumes:
+      - .:/var/lib/postgresql/data
+
