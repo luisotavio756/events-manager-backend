@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
-import createUsersService from '../services/CreateUserService';
-import listUsersService from '../services/ListUsersService';
+import createUsersService from '../services/UserServices/CreateUserService';
+import listUsersService from '../services/UserServices/ListUsersService';
 
 export default {
   async index(request: Request, response: Response): Promise<Response> {
