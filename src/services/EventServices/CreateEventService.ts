@@ -1,9 +1,9 @@
 import { isBefore, parseISO } from 'date-fns';
 
-import SessionDTO from '../dtos/SessionDTO';
-import AppError from '../errors/AppError';
-import Event from '../models/Event';
-import knex from '../database/connection';
+import SessionDTO from '../../dtos/SessionDTO';
+import AppError from '../../errors/AppError';
+import Event from '../../models/Event';
+import knex from '../../database/connection';
 
 interface ICreateEventRequest {
   ds_evento: string;

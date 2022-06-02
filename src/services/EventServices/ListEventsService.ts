@@ -1,5 +1,5 @@
 import Event from 'models/Event';
-import knex from '../database/connection';
+import knex from '../../database/connection';
 
 export default {
   async run(): Promise<Event[]> {

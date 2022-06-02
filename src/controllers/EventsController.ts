@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 
-import createEventService from '../services/CreateEventService';
-import listEventsService from '../services/ListEventsService';
+import createEventService from '../services/EventServices/CreateEventService';
+import listEventsService from '../services/EventServices/ListEventsService';
 
 export default {
   async index(request: Request, response: Response): Promise<Response> {
