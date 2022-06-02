@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import EventsController from '../controllers/EventsController';
+
 import sessionsRoutes from './sessions.routes';
 
 const eventsroutes = Router();
