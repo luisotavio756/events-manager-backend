@@ -1,5 +1,5 @@
 import { ISeatAvailability, ITicket } from 'types';
-import { getSeatAvailabilities } from '../../utils/utils';
+import { getSessionAvailability } from '../../utils/utils';
 import knex from '../../database/connection';
 
 interface IRequest {
@@ -18,22 +18,11 @@ export default {
       .where('id_sessao', session_id);
 
     const seatsTotal = session[0].nr_assentos;
-    const halfSeatsTotal = seatsTotal / 2;
-
-    const firstHalfSeats = getSeatAvailabilities({
-      halfSeatsTotal,
+    const seatsAvailability = getSessionAvailability({
       sailedSeats,
-      startsAt: 1,
-      suffix: 'A',
+      seatsTotal,
     });
 
-    const secondHalfSeats = getSeatAvailabilities({
-      halfSeatsTotal,
-      sailedSeats,
-      startsAt: halfSeatsTotal + 1,
-      suffix: 'B',
-    });
-
-    return [...firstHalfSeats, ...secondHalfSeats];
+    return seatsAvailability;
   },
 };
