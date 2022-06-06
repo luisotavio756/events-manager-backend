@@ -27,6 +27,9 @@ export default {
   }: ICreateUserRequest): Promise<User> {
     const trx = await knex.transaction();
 
+    const bcrypt = require("bcrypt");
+    const hashedPassword = await bcrypt.hash(ds_senha, 10);
+
     const user = {
         ds_nome,
         ds_cpf,
@@ -34,7 +37,7 @@ export default {
         ds_email,
         ds_telefone,
         ds_login,
-        ds_senha,
+        ds_senha: hashedPassword,
         dt_nascimento,
         id_tipo_usuario
     };
@@ -55,7 +58,7 @@ export default {
         ds_email,
         ds_telefone,
         ds_login,
-        ds_senha,
+        ds_senha: hashedPassword,
         dt_nascimento,
         id_tipo_usuario
     };
