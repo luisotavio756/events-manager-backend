@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import createEventService from '../services/EventServices/CreateEventService';
 import listEventsService from '../services/EventServices/ListEventsService';
+import listSingleEventsService from '../services/EventServices/ListSingleEventService';
 
 export default {
   async index(request: Request, response: Response): Promise<Response> {
@@ -20,5 +21,15 @@ export default {
     });
 
     return response.json(createEvent);
+  },
+
+  async singleEvent(request: Request, response: Response): Promise<Response> {
+    const { id } = request.params;
+
+    const event = await listSingleEventsService.run({
+      id: Number(id),
+    });
+
+    return response.json(event);
   },
 };

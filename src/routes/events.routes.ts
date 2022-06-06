@@ -8,6 +8,7 @@ const eventsroutes = Router();
 
 eventsroutes.get('/', EventsController.index);
 eventsroutes.post('/', EventsController.create);
+eventsroutes.get('/:id', EventsController.singleEvent);
 
 eventsroutes.use('/:event_id/sessions', sessionsRoutes);
 
