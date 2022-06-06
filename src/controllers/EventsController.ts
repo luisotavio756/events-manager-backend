@@ -23,7 +23,7 @@ export default {
     return response.json(createEvent);
   },
 
-  async singleEvent(request: Request, response: Response): Promise<Response> {
+  async find(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
     const event = await listSingleEventsService.run({
