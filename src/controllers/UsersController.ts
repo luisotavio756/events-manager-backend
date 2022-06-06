@@ -22,7 +22,7 @@ export default {
         ds_login: login,
         ds_senha: password,
         dt_nascimento: birthDate,
-        id_tipo_usuario: 0,
+        id_tipo_usuario: 3,
     });
 
     return response.json(createUser);

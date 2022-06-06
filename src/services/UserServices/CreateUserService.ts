@@ -45,8 +45,6 @@ export default {
 
     const { id_usuario } = insertedIds[0] as any;
 
-    await trx('tb_usuario').insert(user);
-
     await trx.commit();
 
     return {
@@ -59,7 +57,7 @@ export default {
         ds_login,
         ds_senha,
         dt_nascimento,
-        id_tipo_usuario: 0
+        id_tipo_usuario
     };
   },
 };
