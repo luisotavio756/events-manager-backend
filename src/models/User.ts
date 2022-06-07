@@ -18,5 +18,7 @@ export default class User {
     public dt_nascimento: Date;
   
     public id_tipo_usuario: number;
+
+    public token?: string;
   }
   
