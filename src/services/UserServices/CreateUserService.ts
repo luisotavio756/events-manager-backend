@@ -1,4 +1,5 @@
 import User from '../../models/User';
+import AppError from '../../errors/AppError';
 import knex from '../../database/connection';
 
 interface ICreateUserRequest {
@@ -27,40 +28,49 @@ export default {
   }: ICreateUserRequest): Promise<User> {
     const trx = await knex.transaction();
 
-    const bcrypt = require("bcrypt");
-    const hashedPassword = await bcrypt.hash(ds_senha, 10);
+    const findUser = await knex('tb_usuario').select('*').where('ds_email', ds_email);
 
-    const user = {
-        ds_nome,
-        ds_cpf,
-        ds_sexo, 
-        ds_email,
-        ds_telefone,
-        ds_login,
-        ds_senha: hashedPassword,
-        dt_nascimento,
-        id_tipo_usuario
-    };
+    if (findUser.length == 0) {
 
-    const insertedIds = await trx('tb_usuario')
-      .returning('id_usuario')
-      .insert(user);
+      const bcrypt = require("bcrypt");
+      const hashedPassword = await bcrypt.hash(ds_senha, 10);
 
-    const { id_usuario } = insertedIds[0] as any;
+      const user = {
+          ds_nome,
+          ds_cpf,
+          ds_sexo, 
+          ds_email,
+          ds_telefone,
+          ds_login,
+          ds_senha: hashedPassword,
+          dt_nascimento,
+          id_tipo_usuario
+      };
 
-    await trx.commit();
+      const insertedIds = await trx('tb_usuario')
+        .returning('id_usuario')
+        .insert(user);
 
-    return {
-        id_usuario,
-        ds_nome,
-        ds_cpf,
-        ds_sexo, 
-        ds_email,
-        ds_telefone,
-        ds_login,
-        ds_senha: hashedPassword,
-        dt_nascimento,
-        id_tipo_usuario
-    };
+      const { id_usuario } = insertedIds[0] as any;
+
+      await trx.commit();
+
+      return {
+          id_usuario,
+          ds_nome,
+          ds_cpf,
+          ds_sexo, 
+          ds_email,
+          ds_telefone,
+          ds_login,
+          ds_senha: hashedPassword,
+          dt_nascimento,
+          id_tipo_usuario
+      };
+    } else {
+      throw new AppError(
+          'Email já cadastrado no sistema.', 422
+      );
+    }
   },
 };
