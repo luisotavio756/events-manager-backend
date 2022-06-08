@@ -15,6 +15,10 @@ export default {
       throw new AppError('Local já cadastrado.');
     }
 
+    if (nr_assentos % 2 !== 0) {
+      throw new AppError('Número de assentos deve ser par.');
+    }
+
     await knex('tb_local').returning('*').insert({
       ds_local,
       nr_assentos,
