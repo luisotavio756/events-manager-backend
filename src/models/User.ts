@@ -11,7 +11,7 @@ export default class User {
 
     public ds_telefone: string;
   
-    public ds_login?: string;
+    public ds_login: string;
   
     public ds_senha?: string;
 
