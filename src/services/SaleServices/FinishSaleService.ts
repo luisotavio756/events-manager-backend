@@ -16,6 +16,10 @@ interface IRequest {
   tickets: Array<Ticket>;
 }
 
+interface IResponse extends Sale {
+  amountRate: number;
+}
+
 export default {
   async run({
     id_usuario,
@@ -27,7 +31,7 @@ export default {
     nr_documento,
     nr_protocolo,
     tickets,
-  }: IRequest): Promise<Sale | void> {
+  }: IRequest): Promise<IResponse | void> {
     const trx = await knex.transaction();
 
     const findSession = await knex<Session>('tb_sessoes').where(
@@ -94,7 +98,7 @@ export default {
         id_usuario,
         nr_documento,
         nr_protocolo,
-        nr_valorvenda: saleAmount,
+        nr_valorvenda: saleAmount * 1.05,
       };
 
       const sale: Sale[] = await trx('tb_venda')
@@ -116,6 +120,7 @@ export default {
 
       return {
         ...insertedSale,
+        amountRate: saleAmount * 0.05,
         tickets: insertedTickets,
       };
     } catch (error) {
