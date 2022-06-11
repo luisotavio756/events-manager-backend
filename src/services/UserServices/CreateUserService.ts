@@ -1,6 +1,7 @@
 import User from '../../models/User';
 import AppError from '../../errors/AppError';
 import knex from '../../database/connection';
+import bcrypt from 'bcrypt';
 
 interface ICreateUserRequest {
     ds_nome: string;
@@ -32,7 +33,6 @@ export default {
 
     if (findUser.length == 0) {
 
-      const bcrypt = require("bcrypt");
       const hashedPassword = await bcrypt.hash(ds_senha, 10);
 
       const user = {
@@ -63,7 +63,6 @@ export default {
           ds_email,
           ds_telefone,
           ds_login,
-          ds_senha: hashedPassword,
           dt_nascimento,
           id_tipo_usuario
       };

@@ -1,6 +1,7 @@
 import User from 'models/User';
 import AppError from '../../errors/AppError';
 import knex from '../../database/connection';
+import bcrypt from 'bcrypt';
 
 interface ICreateAuthenticationRequest {
   email: string;
@@ -15,8 +16,6 @@ export default {
 
     const findUser = await knex('tb_usuario').select('*').where('ds_email', email);
 
-    const bcrypt = require("bcrypt");
-
     if (findUser.length != 0 && await bcrypt.compare(password, findUser[0].ds_senha)) {
 
         const user = {
@@ -27,7 +26,6 @@ export default {
             ds_email: findUser[0].ds_email,
             ds_telefone: findUser[0].ds_telefone,
             ds_login: findUser[0].ds_login,
-            ds_senha: findUser[0].ds_senha,
             dt_nascimento: findUser[0].dt_nascimento,
             id_tipo_usuario: findUser[0].id_tipo_usuario,
             token: "Token",

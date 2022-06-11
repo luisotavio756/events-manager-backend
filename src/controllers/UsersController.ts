@@ -11,7 +11,7 @@ export default {
   },
 
   async create(request: Request, response: Response): Promise<Response> {
-    const { name, cpf, sexo, email, telephone, login, password, birthDate } = request.body;
+    const { name, cpf, sexo, email, telephone, password, birthDate } = request.body;
 
     const createUser = await createUsersService.run({
         ds_nome: name,
@@ -19,7 +19,7 @@ export default {
         ds_sexo: sexo,
         ds_email: email,
         ds_telefone: telephone,
-        ds_login: login,
+        ds_login: email,
         ds_senha: password,
         dt_nascimento: birthDate,
         id_tipo_usuario: 3,
