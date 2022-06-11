@@ -63,8 +63,6 @@ export default {
           ds_email,
           ds_telefone,
           ds_login,
-          // ds_senha: hashedPassword,
-          // ds_senha: "",
           dt_nascimento,
           id_tipo_usuario
       };
