@@ -2,10 +2,18 @@ import User from 'models/User';
 import AppError from '../../errors/AppError';
 import knex from '../../database/connection';
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
+import AuthConfig from '../../config/AuthConfig';
 
 interface ICreateAuthenticationRequest {
   email: string;
   password: string;
+}
+
+function generateToken(params = {}) {
+	return jwt.sign(params , AuthConfig.jwt.secret, {
+		expiresIn: AuthConfig.jwt.expiresIn,
+	})
 }
 
 export default {
@@ -28,7 +36,7 @@ export default {
             ds_login: findUser[0].ds_login,
             dt_nascimento: findUser[0].dt_nascimento,
             id_tipo_usuario: findUser[0].id_tipo_usuario,
-            token: "Token",
+            token: generateToken({id: findUser[0].id_usuario}),
         };
     
         return user;
