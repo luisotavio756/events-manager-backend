@@ -5,11 +5,16 @@ import usersroutes from './users.routes';
 import sessionsRoutes from './sessions.routes';
 import salesRoutes from './sales.routes';
 
+import authMiddleware from '../middlewares/auth'
+
 const routes = Router();
+
+routes.use('/users', usersroutes);
+
+// routes.use(authMiddleware);
 
 routes.use('/events', eventsRoutes);
 routes.use('/places', placeRoutes);
-routes.use('/users', usersroutes);
 routes.use('/sessions', sessionsRoutes);
 routes.use('/sales', salesRoutes);
 
