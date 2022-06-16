@@ -33,9 +33,9 @@ export default function authSession(
 
     const { sub } = decoded as ITokenPayload;
 
-    // request.user = {
-    //   id: sub,
-    // };
+    request.user = {
+      id: sub,
+    };
 
     return next();
   } catch (error) {
