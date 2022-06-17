@@ -1,13 +1,13 @@
 import { Request, Response, NextFunction } from 'express';
-import { verify } from 'jsonwebtoken'; 
+import { verify } from 'jsonwebtoken';
 
 import AuthConfig from '../config/AuthConfig'; // Para pegar a secret
 import AppError from '../errors/AppError';
 
 interface ITokenPayload {
-  id: number;
-  exp: number;
   sub: string;
+  iat: number;
+  exp: number;
 }
 
 export default function authSession(
@@ -29,18 +29,13 @@ export default function authSession(
     throw new AppError('Token bad formated !', 401);
 
   try {
-    const decoded = verify(token, AuthConfig.jwt.secret); 
+    const decoded = verify(token, AuthConfig.jwt.secret);
 
-    // const { sub } = decoded as ITokenPayload;
+    const { sub } = decoded as ITokenPayload;
 
-    const { id } = decoded as ITokenPayload;
-    
-    console.log(id);
-    console.log(decoded);
-
-    // request.user = {
-    //   id: id,
-    // };
+    request.user = {
+      id: sub,
+    };
 
     return next();
   } catch (error) {
