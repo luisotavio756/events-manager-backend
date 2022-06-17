@@ -5,6 +5,7 @@ import AuthConfig from '../config/AuthConfig'; // Para pegar a secret
 import AppError from '../errors/AppError';
 
 interface ITokenPayload {
+  lvl: number;
   sub: string;
   iat: number;
   exp: number;
