@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { decode, verify } from 'jsonwebtoken';
+import { verify } from 'jsonwebtoken';
 
 import AuthConfig from '../config/AuthConfig'; // Para pegar a secret
 import AppError from '../errors/AppError';
