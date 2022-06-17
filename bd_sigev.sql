@@ -402,7 +402,8 @@ INSERT INTO public.tb_tipousuario (id_tipousuario, ds_tipousuario) VALUES (3, 'C
 -- Dependencies: 210
 -- Data for Name: tb_usuario; Type: TABLE DATA; Schema: public; Owner: postgres
 --
-
+INSERT INTO public.tb_usuario (id_usuario, ds_nome, ds_cpf, ds_sexo, ds_email, ds_telefone, ds_login, ds_senha, dt_nascimento, id_tipo_usuario) VALUES
+(1, 'Admin', '00000000000', 'M', 'admin@admin.com', '00000000000', 'admin', '$2b$10$GTFtcFy5asETLbu.vf9NX.NfRZkAFRSz8mLA0dPJ.8apoiFxYiSsO', '2000-01-01', 1);
 
 
 --
