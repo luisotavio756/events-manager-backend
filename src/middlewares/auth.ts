@@ -1,10 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
-import { verify } from 'jsonwebtoken';
+import { decode, verify } from 'jsonwebtoken';
 
 import AuthConfig from '../config/AuthConfig'; // Para pegar a secret
 import AppError from '../errors/AppError';
 
 interface ITokenPayload {
+  lvl: number;
   sub: string;
   iat: number;
   exp: number;

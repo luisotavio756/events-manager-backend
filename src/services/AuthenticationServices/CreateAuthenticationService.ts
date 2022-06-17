@@ -10,8 +10,8 @@ interface ICreateAuthenticationRequest {
   password: string;
 }
 
-function generateToken(params = {}) {
-  return jwt.sign({}, AuthConfig.jwt.secret, {
+function generateToken(role = {}, params = {}) {
+  return jwt.sign(role, AuthConfig.jwt.secret, {
     ...params,
     expiresIn: AuthConfig.jwt.expiresIn,
   });
@@ -37,7 +37,10 @@ export default {
         ds_login: findUser[0].ds_login,
         dt_nascimento: findUser[0].dt_nascimento,
         id_tipo_usuario: findUser[0].id_tipo_usuario,
-        token: generateToken({ subject: String(findUser[0].id_usuario) }),
+        token: generateToken({
+          lvl: findUser[0].id_tipo_usuario,
+          sub: findUser[0].id_usuario,
+        }),
       };
 
       return user;
