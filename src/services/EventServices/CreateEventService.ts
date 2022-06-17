@@ -7,6 +7,7 @@ import Event from '../../models/Event';
 import knex from '../../database/connection';
 
 interface ICreateEventRequest {
+  nm_evento: string;
   ds_evento: string;
   ds_tipoevento: string;
   sessoes: SessionDTO[];
@@ -14,6 +15,7 @@ interface ICreateEventRequest {
 
 export default {
   async run({
+    nm_evento,
     ds_evento,
     ds_tipoevento,
     sessoes,
@@ -22,6 +24,7 @@ export default {
     const trx = await knex.transaction();
 
     const event = {
+      nm_evento,
       ds_evento,
       dt_cadastro: createdDate,
       ds_tipoevento,
@@ -64,6 +67,7 @@ export default {
 
     return {
       id_evento,
+      nm_evento,
       ds_evento,
       ds_tipoevento,
       dt_cadastro: createdDate,

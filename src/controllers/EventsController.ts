@@ -12,9 +12,10 @@ export default {
   },
 
   async create(request: Request, response: Response): Promise<Response> {
-    const { description, eventType, sessions } = request.body;
+    const { name, description, eventType, sessions } = request.body;
 
     const createEvent = await createEventService.run({
+      nm_evento: name,
       ds_evento: description,
       ds_tipoevento: eventType,
       sessoes: sessions,

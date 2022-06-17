@@ -5,6 +5,7 @@
 
 CREATE TABLE public.tb_eventos (
     id_evento integer NOT NULL,
+    nm_evento character varying(200) NOT NULL,
     ds_evento character varying(200) NOT NULL,
     dt_cadastro timestamp without time zone NOT NULL,
     ds_tipoevento character varying NOT NULL
@@ -351,8 +352,8 @@ ALTER TABLE ONLY public.tb_venda ALTER COLUMN id_venda SET DEFAULT nextval('publ
 -- Data for Name: tb_eventos; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public.tb_eventos (id_evento, ds_evento, dt_cadastro, ds_tipoevento) VALUES (1, 'CALOURADA DA UFC', '2022-05-20 10:46:43.832252', 'MUSICAL');
-INSERT INTO public.tb_eventos (id_evento, ds_evento, dt_cadastro, ds_tipoevento) VALUES (2, 'MUSICAL UFC', '2022-05-20 10:47:47.845495', 'MUSICAL');
+INSERT INTO public.tb_eventos (id_evento, nm_evento, ds_evento, dt_cadastro, ds_tipoevento) VALUES (1, 'CALOURADA', 'EVENTO PARA OS CALOUROS DA UFC', '2022-05-20 10:46:43.832252', 'MUSICAL');
+INSERT INTO public.tb_eventos (id_evento, nm_evento, ds_evento, dt_cadastro, ds_tipoevento) VALUES (2, 'MUSICAL UFC', 'EVENTO ARTÍSTICO MUSICAL DA UFC', '2022-05-20 10:47:47.845495', 'MUSICAL');
 
 
 --
