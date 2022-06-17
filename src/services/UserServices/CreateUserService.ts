@@ -32,7 +32,7 @@ export default {
     const trx = await knex.transaction();
 
     if (ds_senha !== ds_senha_confirmacao)
-      throw new AppError('Passwords do not match.', 422);
+      throw new AppError('As senhas não corrrespondem.', 422);
 
     const findUser = await knex('tb_usuario')
       .select('*')
@@ -74,6 +74,6 @@ export default {
       };
     }
 
-    throw new AppError('Email already registered in the system.', 422);
+    throw new AppError('Email já cadastrado no sistema.', 422);
   },
 };
