@@ -1,5 +1,6 @@
 import Event from 'models/Event';
 import Session from 'models/Session';
+import { isSessionActive } from '../../utils/utils';
 import AppError from '../../errors/AppError';
 import knex from '../../database/connection';
 
@@ -18,10 +19,16 @@ export default {
     const sessions = await knex<Session>('tb_sessoes')
       .select('*')
       .where('id_evento', id);
+    const parsedSessions = sessions.map(item => {
+      return {
+        ...item,
+        is_active: isSessionActive(item.dt_sessao),
+      };
+    });
 
     return {
       ...event,
-      sessoes: sessions,
+      sessoes: parsedSessions,
     };
   },
 };

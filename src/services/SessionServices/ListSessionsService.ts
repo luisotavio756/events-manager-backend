@@ -1,4 +1,5 @@
 import Session from 'models/Session';
+import { isSessionActive } from '../../utils/utils';
 import knex from '../../database/connection';
 
 interface IRequest {
@@ -37,6 +38,7 @@ export default {
       availableTickets:
         Number(session.nr_assentos) - Number(session.sailedTickets),
       sailedTickets: Number(session.sailedTickets),
+      is_active: isSessionActive(session.dt_sessao),
     }));
 
     return sessions;

@@ -8,4 +8,6 @@ export default class Session {
   public dt_sessao: string | Date;
 
   public nr_valorInteira: number;
+
+  public is_active?: boolean;
 }

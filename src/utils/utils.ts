@@ -1,3 +1,5 @@
+import { isAfter } from 'date-fns';
+import { utcToZonedTime } from 'date-fns-tz';
 import { ISeatAvailability, ITicket } from '../types';
 
 interface IGetSeatsAvailabily {
@@ -50,4 +52,10 @@ export function getSessionAvailability({
   });
 
   return [...firstHalfSeats, ...secondHalfSeats];
+}
+
+export function isSessionActive(date: Date | string) {
+  const dateWithTimezone = utcToZonedTime(new Date(), 'America/Sao_Paulo');
+
+  return isAfter(new Date(date), dateWithTimezone);
 }
