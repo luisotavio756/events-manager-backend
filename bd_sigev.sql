@@ -600,3 +600,50 @@ ALTER TABLE ONLY public.tb_sessoes
 -- PostgreSQL database dump complete
 --
 
+-- Creating RF_FS01 view
+CREATE OR REPLACE VIEW public."RF_FS01"
+ AS
+SELECT
+	e.id_evento,
+	s.id_sessao,
+	e.ds_evento,
+	e.ds_tipoevento,
+	l.ds_local,
+	CAST(s.dt_sessao AS DATE) AS ds_data,
+	CAST(s.dt_sessao AS TIME) AS ds_hora,
+	(SELECT COUNT(*) FROM tb_ingressos WHERE ds_tipo = 'Inteira' AND id_sessao = s.id_sessao) AS total_ingressos_inteira,
+	(SELECT COUNT(*) FROM tb_ingressos WHERE ds_tipo = 'Meia' AND id_sessao = s.id_sessao) AS total_ingressos_meia,
+	(SELECT COUNT(*) FROM tb_ingressos WHERE id_sessao = s.id_sessao) AS total_ingressos_vendidos,
+	SUM(i.nr_valor) AS valor_total_arrecadado
+FROM tb_eventos AS e
+INNER JOIN tb_sessoes AS s ON s.id_evento = e.id_evento
+INNER JOIN tb_local AS l ON l.id_local = s.id_local
+LEFT JOIN tb_ingressos AS i ON i.id_sessao = s.id_sessao
+GROUP BY e.id_evento, s.id_sessao , l.id_local
+ORDER BY ds_data, ds_hora ASC;
+
+ALTER TABLE public."RF_FS01"
+    OWNER TO postgres;
+
+-- Creating RF_FS02 view
+CREATE OR REPLACE VIEW public."RF_FS02"
+ AS
+SELECT
+	e.id_evento,
+	s.id_sessao,
+	e.ds_evento,
+	e.ds_tipoevento,
+	l.ds_local,
+	CAST(s.dt_sessao AS DATE) AS ds_data,
+	CAST(s.dt_sessao AS TIME) AS ds_hora,
+	l.nr_assentos - (SELECT COUNT(*) FROM tb_ingressos WHERE id_sessao = s.id_sessao) AS ingressos_disponiveis
+FROM tb_eventos AS e
+INNER JOIN tb_sessoes AS s ON s.id_evento = e.id_evento
+INNER JOIN tb_local AS l ON l.id_local = s.id_local
+LEFT JOIN tb_ingressos AS i ON i.id_sessao = s.id_sessao
+GROUP BY e.id_evento, s.id_sessao , l.id_local
+ORDER BY ds_data, ds_hora ASC;
+
+ALTER TABLE public."RF_FS02"
+    OWNER TO postgres;
+
