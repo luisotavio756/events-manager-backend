@@ -7,7 +7,6 @@ export default {
     const {
       id_usuario,
       id_sessao,
-      nr_protocolo,
       ds_formapagamento,
       ds_tipovenda,
       ds_nomecliente,
@@ -19,7 +18,6 @@ export default {
     const finishedSale = await finishSaleService.run({
       id_usuario,
       id_sessao,
-      nr_protocolo,
       ds_formapagamento,
       ds_tipovenda,
       ds_nomecliente,

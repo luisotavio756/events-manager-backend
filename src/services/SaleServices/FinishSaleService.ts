@@ -7,7 +7,6 @@ import knex from '../../database/connection';
 interface IRequest {
   id_usuario?: number;
   id_sessao: number;
-  nr_protocolo: number;
   ds_formapagamento: string;
   ds_tipovenda: string;
   ds_nomecliente: string;
@@ -29,7 +28,6 @@ export default {
     ds_tipodocumento,
     ds_tipovenda,
     nr_documento,
-    nr_protocolo,
     tickets,
   }: IRequest): Promise<IResponse | void> {
     const trx = await knex.transaction();
@@ -89,6 +87,8 @@ export default {
     );
 
     try {
+      const protocolNumber = String(Date.now()).substring(0, 6);
+
       const saleData = {
         ds_formapagamento,
         ds_nomecliente,
@@ -97,7 +97,7 @@ export default {
         dt_venda: new Date(),
         id_usuario,
         nr_documento,
-        nr_protocolo,
+        nr_protocolo: parseInt(protocolNumber, 10),
         nr_valorvenda: saleAmount * 1.05,
       };
 
