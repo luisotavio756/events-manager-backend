@@ -22,7 +22,7 @@ export default {
       case 'session':
         return knex('RF_FS02').select().where('id_sessao', value);
       default:
-        return [];
+        return knex('RF_FS02').select();
     }
   },
 };

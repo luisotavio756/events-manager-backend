@@ -1,32 +1,28 @@
 import { Request, Response } from 'express';
 
-import invoicingService from '../services/ReportsServices/InvoicingService';
-import avaliableSessionsService from '../services/ReportsServices/AvailableSessionsService';
+import invoicesReportsService from '../services/ReportsServices/invoicesReportsService';
+import availableSessionsReportsService from '../services/ReportsServices/availableSessionsReportsService';
 
 export default {
-  async invoicings(request: Request, response: Response): Promise<Response> {
-    const { filter, value } = request.body;
+  async index(request: Request, response: Response): Promise<Response> {
+    const { filter, value, finalDate, type } = request.body;
 
-    const invoicings = await invoicingService.run({
-      filter,
-      value,
-    });
+    let reports;
 
-    return response.json(invoicings);
-  },
+    if (type === 'invoices') {
+      reports = await invoicesReportsService.run({
+        filter,
+        value,
+      });
+    }
+    if (type === 'availableSessions') {
+      reports = await availableSessionsReportsService.run({
+        filter,
+        value,
+        finalDate,
+      });
+    }
 
-  async avaliableSessions(
-    request: Request,
-    response: Response,
-  ): Promise<Response> {
-    const { filter, value, finalDate } = request.body;
-
-    const avaliableSessions = await avaliableSessionsService.run({
-      filter,
-      value,
-      finalDate,
-    });
-
-    return response.json(avaliableSessions);
+    return response.json(reports);
   },
 };

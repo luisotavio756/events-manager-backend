@@ -5,11 +5,11 @@ import authMiddleware from '../middlewares/auth';
 
 const reportsroutes = Router();
 
-reportsroutes.get('/invoicings', authMiddleware, ReportsController.invoicings);
-reportsroutes.get(
-  '/avaliable_sessions',
-  authMiddleware,
-  ReportsController.avaliableSessions,
-);
+reportsroutes.get('/', ReportsController.index);
+// reportsroutes.get(
+//   '/avaliable_sessions',
+//   authMiddleware,
+//   ReportsController.avaliableSessions,
+// );
 
 export default reportsroutes;
