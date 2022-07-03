@@ -6,6 +6,8 @@ WORKDIR /usr/app/
 RUN apk update && \
     apk add --update git
 
+RUN npm install -g npm@8.13.2
+
 RUN git clone https://github.com/joaoemersonufc/gerenciador-de-eventos.git
 WORKDIR /usr/app/gerenciador-de-eventos
 
