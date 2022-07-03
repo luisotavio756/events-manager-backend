@@ -12,31 +12,29 @@ services:
       - ./pgdata:/var/lib/postgresql/data
     networks:
       - postgres-compose-network
-
-  pgadmin:
-    image: dpage/pgadmin4
-    environment:
-      PGADMIN_DEFAULT_EMAIL: "admin@admin.com"
-      PGADMIN_DEFAULT_PASSWORD: "admin"
-    ports:
-      - "16543:80"
-    depends_on:
-      - postgres
-    networks:
-      - postgres-compose-network
-
   server:
+    build: ./docker/server
+    command: npm start
     depends_on:
       - postgres
-      - pgadmin
-    build: .
-    command: npm start
     ports:
       - "3000:3000"
     volumes:
       - .:/usr/app
     networks:
       - postgres-compose-network
+
+  front:
+    build: ./docker/client
+    command: npm start
+    ports:
+      - "80:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:3000
+    networks:
+      - postgres-compose-network
+    depends_on:
+      - server
 
 networks:
   postgres-compose-network:
