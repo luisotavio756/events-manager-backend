@@ -13,7 +13,9 @@ services:
     networks:
       - postgres-compose-network
   server:
-    build: ./docker/server
+    build:
+      context: .
+      dockerfile: ./docker/server/Dockerfile
     command: npm start
     depends_on:
       - postgres
