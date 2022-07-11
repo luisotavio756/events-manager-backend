@@ -24,17 +24,17 @@ services:
     networks:
       - postgres-compose-network
 
-  front:
-    build: ./docker/client
-    command: npm start
-    ports:
-      - "8080:3000"
-    environment:
-      - REACT_APP_API_URL=http://localhost:3000
-    networks:
-      - postgres-compose-network
-    depends_on:
-      - server
+  # front:
+  #   build: ./docker/client
+  #   command: npm start
+  #   ports:
+  #     - "8080:3000"
+  #   environment:
+  #     - REACT_APP_API_URL=http://localhost:3000
+  #   networks:
+  #     - postgres-compose-network
+  #   depends_on:
+  #     - server
 
 networks:
   postgres-compose-network:
